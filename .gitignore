@@ -1,0 +1,28 @@
+# Java
+/target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+
+# Eclipse, IntelliJ IDEA, VS Code
+/.idea/
+*.iml
+.project
+.classpath
+.settings/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node.js (Frontend)
+/Ecommerce-Frontend/node_modules/
+/Ecommerce-Frontend/dist/
+
+# Environment files
+.env
