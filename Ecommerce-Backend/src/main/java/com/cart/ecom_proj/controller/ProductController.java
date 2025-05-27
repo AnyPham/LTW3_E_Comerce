@@ -18,6 +18,13 @@ import java.util.List;
 @RequestMapping("/api")
 public class ProductController {
 
+    @RestController
+    public class HomeController {
+        @GetMapping("/")
+        public String home() {
+            return "Backend is running!";
+        }
+    }
     @Autowired
     private ProductService service;
 
