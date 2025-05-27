@@ -51,7 +51,7 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
     }
   };
 
-  
+
   // const handleChange = async (value) => {
   //   setInput(value);
   //   if (value.length >= 1) {
@@ -96,11 +96,11 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
 
   const categories = [
     "Laptop",
-    "Headphone",
-    "Mobile",
-    "Electronics",
-    "Toys",
-    "Fashion",
+    "PC",
+    "Màn hình",
+    "Build PC",
+    "Linh kiện máy tính",
+    "Máy in",
   ];
   return (
     <>
@@ -193,7 +193,7 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
                 />
                 {showSearchResults && (
                   <ul className="list-group">
-                    {searchResults.length > 0 ? (  
+                    {searchResults.length > 0 ? (
                         searchResults.map((result) => (
                           <li key={result.id} className="list-group-item">
                             <a href={`/product/${result.id}`} className="search-result-link">
