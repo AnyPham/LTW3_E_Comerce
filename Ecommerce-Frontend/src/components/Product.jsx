@@ -70,13 +70,14 @@ const Product = () => {
     <>
       <div className="containers" style={{ display: "flex" }}>
         <img
-          className="left-column-img"
-          src={imageUrl}
-          alt={product.imageName}
-          style={{ width: "50%", height: "auto" }}
+            className="left-column-img"
+            src={`/images/${product.imageName}`}
+            alt={product.name}
+            style={{width: "50%", height: "auto"}}
         />
 
-        <div className="right-column" style={{ width: "50%" }}>
+
+        <div className="right-column" style={{width: "50%"}}>
           <div className="product-description">
             <div style={{display:'flex',justifyContent:'space-between' }}>
             <span style={{ fontSize: "1.2rem", fontWeight: 'lighter' }}>
