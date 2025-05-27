@@ -84,13 +84,13 @@ const Product = () => {
               {product.category}
             </span>
             <p className="release-date" style={{ marginBottom: "2rem" }}>
-              
+
               <h6>Listed : <span> <i> {new Date(product.releaseDate).toLocaleDateString()}</i></span></h6>
               {/* <i> {new Date(product.releaseDate).toLocaleDateString()}</i> */}
             </p>
             </div>
-            
-           
+
+
             <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem",textTransform: 'capitalize', letterSpacing:'1px' }}>
               {product.name}
             </h1>
@@ -100,11 +100,11 @@ const Product = () => {
           </div>
 
           <div className="product-price">
-            <span style={{ fontSize: "2rem", fontWeight: "bold" }}>
-              {"$" + product.price}
+            <span style={{fontSize: "2rem", fontWeight: "bold"}}>
+              {product.price}<span>₫</span>
             </span>
             <button
-              className={`cart-btn ${
+                className={`cart-btn ${
                 !product.productAvailable ? "disabled-btn" : ""
               }`}
               onClick={handlAddToCart}
@@ -128,7 +128,7 @@ const Product = () => {
                 {product.stockQuantity}
               </i>
             </h6>
-          
+
           </div>
           <div className="update-button" style={{ display: "flex", gap: "1rem" }}>
             <button
