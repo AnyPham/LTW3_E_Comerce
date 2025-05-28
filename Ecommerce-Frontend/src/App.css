@@ -49,7 +49,203 @@
   max-height: 100%;
   margin: 0 auto;
   background-color: var(--root_background) !important;
-}  
+}
+
+/* <.............................................REPONSIVE SIDEBAR......................................> */
+
+/* Hamburger toggle button */
+.sidebar-toggle-btn {
+  position: fixed;
+  top: 70px;         /* gần header hơn */
+  left: 15px;
+  z-index: 1001;
+  background-color: rgba(255, 255, 255, 0.1); /* nền mờ nhẹ */
+  backdrop-filter: blur(4px); /* hiệu ứng nền mờ */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 40px;
+  height: 30px;
+  padding: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sidebar-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Each bar */
+.sidebar-toggle-btn .bar {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  transition: 0.3s ease;
+}
+/*/dark */
+body.dark .sidebar-toggle-btn {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Mặc định (light mode) */
+.sidebar {
+  background-color: #ffffff;
+  color: #333;
+}
+
+/* Dark theme */
+body.dark .sidebar {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+}
+
+/* Đường viền sidebar dark */
+body.dark .sidebar {
+  border-right: 1px solid #333;
+}
+
+/* Đổi màu link bên trong nếu cần */
+body.dark .sidebar a {
+  color: #f5f5f5;
+}
+
+body.dark .sidebar a:hover {
+  color: #4dabf7; /* xanh nhạt khi hover */
+}
+
+.sidebar-overlay {
+  background-color: rgba(0, 0, 0, 0.4); /* giữ nguyên nếu bạn đã đúng */
+}
+
+body.dark .sidebar-overlay {
+  background-color: rgba(255, 255, 255, 0.05); /* có thể thử nếu muốn */
+}
+
+/* Animate when open */
+.sidebar-toggle-btn.open .bar:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.sidebar-toggle-btn.open .bar:nth-child(2) {
+  opacity: 0;
+}
+.sidebar-toggle-btn.open .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Show only on mobile */
+@media (max-width: 768px) {
+  .sidebar-toggle-btn {
+    display: flex;
+  }
+}
+
+/* Overlay mờ khi mở sidebar trên mobile */
+.sidebar-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 1000;
+}
+
+/* Sidebar cơ bản */
+.sidebar {
+  width: 250px;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  height: calc(100vh - 64px);
+  position: sticky;
+  top: 64px;
+  transition: transform 0.3s ease;
+}
+
+/* Responsive: ẩn sidebar trên mobile, biến thành offcanvas */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0; /* để full chiều cao */
+    left: 0;
+    height: 100vh;
+    border-right: none;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+    padding-top: 60px; /* tránh bị che nút toggle */
+    transform: translateX(-100%);
+    z-index: 1002;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  /* Hiện nút toggle */
+  .sidebar-toggle-btn {
+    display: block;
+  }
+}
+
+/* <.............................................SIDEBAR......................................> */
+.sort-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgb(0 0 0 / 0.05);
+  user-select: none;
+}
+
+.sort-btn:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
+}
+
+.sort-btn.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+  box-shadow: 0 4px 10px rgb(0 123 255 / 0.3);
+}
+
+.red-outline {
+  border-color: #e74c3c;
+  color: #e74c3c;
+}
+
+.red-outline:hover {
+  background-color: #e74c3c;
+  color: white;
+  border-color: #e74c3c;
+}
+
+.red-outline.active {
+  background-color: #c0392b;
+  color: white;
+  border-color: #c0392b;
+}
+
+h4 {
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Icon size and alignment */
+.sort-btn svg {
+  font-size: 18px;
+}
+
+/* Scroll if content overflows */
+div[style*="height: calc(100vh - 64px)"] {
+  overflow-y: auto;
+}
 
 /* <.............................................NAVBAR DROPDOWN......................................> */
 .navbar-brand {
