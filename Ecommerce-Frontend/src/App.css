@@ -1375,3 +1375,309 @@ font-size: 14px;
   height: 1px;
   background: var(--hr_line_card)
 }
+
+/* <................................footer..................> */
+
+/* Footer.css */
+.footer {
+  background-color: #f9fafb;
+}
+
+/* Newsletter Section */
+.newsletter-section {
+  background-color: white;
+  border-top: 1px solid #e5e7eb;
+  padding: 2rem 0;
+}
+
+.newsletter-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.newsletter-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .newsletter-content {
+    flex-direction: row;
+  }
+}
+
+.newsletter-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .newsletter-title {
+    margin-bottom: 0;
+  }
+}
+
+.newsletter-form-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.newsletter-form {
+  display: flex;
+  align-items: center;
+}
+
+.newsletter-input {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem 0 0 0.375rem;
+  outline: none;
+  width: 16rem;
+  transition: all 0.2s;
+}
+
+.newsletter-input:focus {
+  ring: 2px;
+  ring-color: #dc2626;
+  border-color: transparent;
+}
+
+.newsletter-button {
+  background-color: #dc2626;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0 0.375rem 0.375rem 0;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.newsletter-button:hover {
+  background-color: #b91c1c;
+}
+
+.social-media-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: 2rem;
+}
+
+.social-icon {
+  padding: 0.5rem;
+  background-color: #f3f4f6;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  background-color: #e5e7eb;
+}
+
+.social-icon-placeholder {
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: #6b7280;
+  border-radius: 2px;
+}
+
+/* Main Footer Content */
+.footer-main {
+  background-color: #f9fafb;
+  padding: 3rem 0;
+}
+
+.footer-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.footer-section-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #111827;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.company-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.contact-icon {
+  color: #dc2626;
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+}
+
+.contact-info p {
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.contact-label {
+  color: #6b7280;
+}
+
+.contact-value {
+  font-weight: 500;
+  color: #111827;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-link {
+  font-size: 0.875rem;
+  color: #6b7280;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  color: #dc2626;
+}
+
+/* Bottom Copyright Section */
+.footer-bottom {
+  background-color: white;
+  border-top: 1px solid #e5e7eb;
+  padding: 1.5rem 0;
+}
+
+.footer-bottom-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .footer-bottom-content {
+    flex-direction: row;
+  }
+}
+
+.copyright-text {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .copyright-text {
+    margin-bottom: 0;
+  }
+}
+
+.copyright-text p {
+  margin: 0;
+}
+
+.copyright-text p:not(:first-child) {
+  margin-top: 0.25rem;
+}
+
+.certification-badges {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.badge-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.certification-badge {
+  width: 4rem;
+  height: 3rem;
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-blue {
+  background-color: #2563eb;
+}
+
+.badge-green {
+  background-color: #16a34a;
+}
+
+.badge-text {
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .newsletter-form-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .social-media-icons {
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .newsletter-input {
+    width: 100%;
+    border-radius: 0.375rem;
+  }
+
+  .newsletter-button {
+    border-radius: 0.375rem;
+  }
+}

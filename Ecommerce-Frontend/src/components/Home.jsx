@@ -4,6 +4,7 @@ import axios from "axios";
 import AppContext from "../Context/Context";
 import unplugged from "../assets/unplugged.png";
 import Sidebar from "../components/Sidebar";
+import Footer from '../components/Footer'
 
 const Home = ({ selectedCategory }) => {
     const { data, isError, addToCart, refreshData } = useContext(AppContext);
@@ -56,8 +57,8 @@ const Home = ({ selectedCategory }) => {
 
     return (
         <>
-            <div style={{ display: "flex", marginTop: "64px" }}>
-                <Sidebar />
+            <div style={{display: "flex", marginTop: "64px"}}>
+                <Sidebar/>
 
                 <div
                     className="grid"
@@ -70,18 +71,19 @@ const Home = ({ selectedCategory }) => {
                     }}
                 >
                     {filteredProducts.length === 0 ? (
-                        <h2 className="text-center" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <h2 className="text-center"
+                            style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
                             No Products Available
                         </h2>
                     ) : (
                         filteredProducts.map((product) => {
-                            const { id, brand, name, price, productAvailable } = product;
+                            const {id, brand, name, price, productAvailable} = product;
                             return (
                                 <div
                                     className="card mb-3"
                                     style={{
                                         width: "265px",
-                                        height: "375px",
+                                        height: "390px",
                                         boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
                                         borderRadius: "10px",
                                         overflow: "hidden",
@@ -95,7 +97,7 @@ const Home = ({ selectedCategory }) => {
                                 >
                                     <Link
                                         to={`/product/${id}`}
-                                        style={{ textDecoration: "none", color: "inherit" }}
+                                        style={{textDecoration: "none", color: "inherit"}}
                                     >
                                         <img
                                             src={`/images/${product.imageName}`}
@@ -120,23 +122,31 @@ const Home = ({ selectedCategory }) => {
                                             }}
                                         >
                                             <div>
-                                                <h5 className="card-title" style={{ margin: "0 0 10px 0", fontSize: "1.2rem" }}>
+                                                <h5 className="card-title"
+                                                    style={{margin: "0 0 10px 0", fontSize: "1.2rem"}}>
                                                     {name.toUpperCase()}
                                                 </h5>
-                                                <i className="card-brand" style={{ fontStyle: "italic", fontSize: "0.8rem" }}>
+                                                <i className="card-brand"
+                                                   style={{fontStyle: "italic", fontSize: "0.8rem"}}>
                                                     {"~ " + brand}
                                                 </i>
                                             </div>
-                                            <hr className="hr-line" style={{ margin: "10px 0" }} />
+                                            <hr className="hr-line" style={{margin: "10px 0"}}/>
                                             <div className="home-cart-price">
-                                                <h5 className="card-text" style={{ fontWeight: "600", fontSize: "1.1rem", marginBottom: '5px', display: 'flex', justifyContent: 'right' }}>
+                                                <h5 className="card-text" style={{
+                                                    fontWeight: "600",
+                                                    fontSize: "1.1rem",
+                                                    marginBottom: '5px',
+                                                    display: 'flex',
+                                                    justifyContent: 'right'
+                                                }}>
                                                     {price}
                                                     <span>₫</span>
                                                 </h5>
                                             </div>
                                             <button
                                                 className="btn-hover color-9"
-                                                style={{ margin: '10px 25px 0px ' }}
+                                                style={{margin: '10px 25px 0px '}}
                                                 onClick={(e) => {
                                                     e.preventDefault();
                                                     addToCart(product);
@@ -153,18 +163,20 @@ const Home = ({ selectedCategory }) => {
                     )}
                 </div>
             </div>
-
-            <footer
-                style={{
-                    backgroundColor: "#f8f8f8",
-                    textAlign: "center",
-                    padding: "20px 0",
-                    marginTop: "40px",
-                    borderTop: "1px solid #ddd",
-                }}
-            >
-                <p style={{ margin: 0 }}>© 2025 My Store. All rights reserved.</p>
-            </footer>
+            <div>
+                <Footer/>
+            </div>
+            {/*<footer*/}
+            {/*    style={{*/}
+            {/*        backgroundColor: "#f8f8f8",*/}
+            {/*        textAlign: "center",*/}
+            {/*        padding: "20px 0",*/}
+            {/*        marginTop: "40px",*/}
+            {/*        borderTop: "1px solid #ddd",*/}
+            {/*    }}*/}
+            {/*>*/}
+            {/*    <p style={{ margin: 0 }}>© 2025 My Store. All rights reserved.</p>*/}
+            {/*</footer>*/}
         </>
     );
 };
