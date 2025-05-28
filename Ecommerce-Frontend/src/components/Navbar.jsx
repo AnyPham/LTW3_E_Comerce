@@ -107,8 +107,8 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
       <header>
         <nav className="navbar navbar-expand-lg fixed-top">
           <div className="container-fluid">
-            <a className="navbar-brand" href="https://www.linkedin.com/in/harish-kumar-gatti-663066249/">
-              HiTeckKart Laptop Shop
+            <a className="navbar-brand" href="/">
+              Laptop Shop
             </a>
             <button
               className="navbar-toggler"
