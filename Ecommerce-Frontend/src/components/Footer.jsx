@@ -99,7 +99,7 @@ const LaptopShopFooter = () => {
                         {/* Policies */}
                         <div>
                             <h3 className="footer-section-title">
-                                CHÍNH SÁCH
+             om                   CHÍNH SÁCH
                             </h3>
                             <ul className="footer-links">
                                 <li><a href="#" className="footer-link">Chính sách đổi trả, bảo hành</a></li>
@@ -157,16 +157,16 @@ const LaptopShopFooter = () => {
                         </div>
 
                         {/* Certification Badge */}
-                        <div className="certification-badges">
-                            <div className="badge-group">
-                                <div className="certification-badge badge-blue">
-                                    <span className="badge-text">ĐÃ THÔNG BÁO</span>
-                                </div>
-                                <div className="certification-badge badge-green">
-                                    <span className="badge-text">DMCA PROTECTED</span>
-                                </div>
-                            </div>
-                        </div>
+                        {/*<div className="certification-badges">*/}
+                        {/*    <div className="badge-group">*/}
+                        {/*        <div className="certification-badge badge-blue">*/}
+                        {/*            <span className="badge-text">ĐÃ THÔNG BÁO</span>*/}
+                        {/*        </div>*/}
+                        {/*        <div className="certification-badge badge-green">*/}
+                        {/*            <span className="badge-text">DMCA PROTECTED</span>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
             </div>
