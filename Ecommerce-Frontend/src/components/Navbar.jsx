@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import Home from "./Home"
-import axios from "axios";
+import axios from "axios"
 // import { json } from "react-router-dom";
 // import { BiSunFill, BiMoon } from "react-icons/bi";
 
@@ -136,37 +137,36 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
                     Add Product
                   </a>
                 </li>
-
                 <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    href="/"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    Categories
-                  </a>
+                    <a
+                        className="nav-link dropdown-toggle"
+                        href="/"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                      Categories
+                    </a>
 
-                  <ul className="dropdown-menu">
-                    {categories.map((category) => (
-                      <li key={category}>
-                        <button
-                          className="dropdown-item"
-                          onClick={() => handleCategorySelect(category)}
-                        >
-                          {category}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
+                    <ul className="dropdown-menu">
+                      {categories.map((category) => (
+                          <li key={category}>
+                            <button
+                                className="dropdown-item"
+                                onClick={() => handleCategorySelect(category)}
+                            >
+                              {category}
+                            </button>
+                          </li>
+                      ))}
+                    </ul>
+                  </li>
 
-                <li className="nav-item"></li>
+                  <li className="nav-item"></li>
               </ul>
               <button className="theme-btn" onClick={() => toggleTheme()}>
                 {theme === "dark-theme" ? (
-                  <i className="bi bi-moon-fill"></i>
+                    <i className="bi bi-moon-fill"></i>
                 ) : (
                   <i className="bi bi-sun-fill"></i>
                 )}
@@ -188,6 +188,7 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
                   aria-label="Search"
                   value={input}
                   onChange={(e) => handleChange(e.target.value)}
+                  style={{ height: '38px' }}
                   onFocus={() => setSearchFocused(true)} // Set searchFocused to true when search bar is focused
                   onBlur={() => setSearchFocused(false)} // Set searchFocused to false when search bar loses focus
                 />
@@ -210,6 +211,13 @@ const Navbar = ({ onSelectCategory, onSearch }) => {
                     )}
                   </ul>
                 )}
+                <Link to="/login" className="btn btn-outline-primary btn-sm me-2 d-flex align-items-center">
+                  <i className="bi bi-person me-1"></i> Login
+                </Link>
+
+                <Link to="/register" className="btn btn-outline-success btn-sm d-flex align-items-center">
+                  <i className="bi bi-person-plus me-1"></i> Register
+                </Link>
                 {/* <button
                   className="btn btn-outline-success"
                   onClick={handleSearch}
