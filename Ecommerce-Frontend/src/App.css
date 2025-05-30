@@ -98,6 +98,48 @@ body.dark .sidebar-toggle-btn {
   background-color: #ffffff;
   color: #333;
 }
+/* <---------------------------------------Login CSS--------------------------------------------------------------> */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.login-card {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.form-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.form-button:hover {
+  background-color: #0056b3;
+}
+
+.register-link {
+  margin-top: 15px;
+}
 
 /* Dark theme */
 body.dark .sidebar {
@@ -261,6 +303,7 @@ div[style*="height: calc(100vh - 64px)"] {
   color: inherit;
   border-radius: 50%;
 }
+
 
 .cart {
   position: relative;
@@ -1680,4 +1723,14 @@ font-size: 14px;
   .newsletter-button {
     border-radius: 0.375rem;
   }
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* đảm bảo full chiều cao màn hình */
+  }
+
+  .content {
+    flex: 1; /* phần nội dung chiếm toàn bộ không gian dư */
+  }
+
 }
