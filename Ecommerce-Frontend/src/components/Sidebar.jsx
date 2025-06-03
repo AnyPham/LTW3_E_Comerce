@@ -59,16 +59,12 @@ const Sidebar = ({ onSortChange, onFilterChange }) => {
             <style>
                 {`
                 .sidebar-container {
-                    // position: fixed;
                     top: 0;
                     left: 0;
                     width: 280px;
-                    // height: 100vh;
-                    // background: #ffffff;
                     border-right: 1px solid #e0e0e0;
                     z-index: 1000;
                     transition: transform 0.3s ease;
-                    // overflow-y: auto;
                     box-shadow: 2px 0 8px rgba(0,0,0,0.1);
                 }
                 
@@ -78,23 +74,6 @@ const Sidebar = ({ onSortChange, onFilterChange }) => {
                 
                 .sidebar-container.open {
                     transform: translateX(0);
-                }
-                
-                .sidebar-toggle-btn {
-                    position: fixed;
-                    top: 15px;
-                    left: 15px;
-                    z-index: 1100;
-                    // background: #007bff;
-                    border: none;
-                    padding: 10px;
-                    border-radius: 6px;
-                    cursor: pointer;
-                    display: none;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    height: 24px;
-                    width: 30px;
                 }
                 
                 .sidebar-toggle-btn .bar {
@@ -166,7 +145,6 @@ const Sidebar = ({ onSortChange, onFilterChange }) => {
                     padding: 12px 15px;
                     font-size: 14px;
                     color: #666;
-                    // background-color: #f8f9fa;
                     border: 1px solid #e9ecef;
                     border-radius: 6px;
                     cursor: pointer;
@@ -506,29 +484,6 @@ const Sidebar = ({ onSortChange, onFilterChange }) => {
                     </div>
                 </div>
             </div>
-
-            {/* Demo content area */}
-            {/*<div style={{*/}
-            {/*    marginLeft: isMobile ? '0' : '280px',*/}
-            {/*    padding: '20px',*/}
-            {/*    backgroundColor: '#f8f9fa',*/}
-            {/*    minHeight: '100vh'*/}
-            {/*}}>*/}
-            {/*    <h2>Nội dung chính</h2>*/}
-            {/*    <p>Đây là khu vực hiển thị sản phẩm. Sidebar sẽ hiển thị ở bên trái.</p>*/}
-            {/*    {Object.keys(activeFilters).length > 0 && (*/}
-            {/*        <div style={{ marginTop: '20px', padding: '15px', backgroundColor: 'white', borderRadius: '8px' }}>*/}
-            {/*            <h4>Bộ lọc đã chọn:</h4>*/}
-            {/*            <pre>{JSON.stringify(activeFilters, null, 2)}</pre>*/}
-            {/*        </div>*/}
-            {/*    )}*/}
-            {/*    {activeSort && (*/}
-            {/*        <div style={{ marginTop: '10px', padding: '15px', backgroundColor: 'white', borderRadius: '8px' }}>*/}
-            {/*            <h4>Sắp xếp hiện tại:</h4>*/}
-            {/*            <p>{activeSort}</p>*/}
-            {/*        </div>*/}
-            {/*    )}*/}
-            {/*</div>*/}
         </>
     );
 };

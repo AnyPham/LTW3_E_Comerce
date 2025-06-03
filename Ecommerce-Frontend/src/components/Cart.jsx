@@ -389,91 +389,257 @@ const Cart = () => {
   };
 
   return (
-    <div className="cart-container">
-      <div className="shopping-cart">
-        <div className="title">Shopping Bag</div>
-        {cartItems.length === 0 ? (
-          <div className="empty" style={{ textAlign: "left", padding: "2rem" }}>
-            <h4>Your cart is empty</h4>
+      <div className="cart-container" style={{
+        minHeight: '100vh',
+        backgroundColor: '#f8f9fa',
+        padding: '2rem 1rem'
+      }}>
+        <div className="shopping-cart" style={{
+          maxWidth: '800px',
+          margin: '0 auto',
+          backgroundColor: 'white',
+          borderRadius: '12px',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+          overflow: 'hidden'
+        }}>
+          <div className="title" style={{
+            background: 'linear-gradient(135deg, rgb(116 138 231) 0%, #154a97 100%)',
+            color: 'white',
+            padding: '1.5rem 2rem',
+            fontSize: '1.5rem',
+            fontWeight: 'bold',
+            textAlign: 'center',
+            margin: 0
+          }}>Shopping Bag
           </div>
-        ) : (
-          <>
-            {cartItems.map((item) => (
-              <li key={item.id} className="cart-item">
-                <div
-                  className="item"
-                  style={{ display: "flex", alignContent: "center" }}
-                  key={item.id}
-                >
 
-                  <div>
-                    <img
-                      src={item.imageUrl}
-                      alt={item.name}
-                      className="cart-item-image"
-                    />
-                  </div>
-                  <div className="description">
-                    <span>{item.brand}</span>
-                    <span>{item.name}</span>
-                  </div>
-
-                  <div className="quantity">
-                    <button
-                      className="plus-btn"
-                      type="button"
-                      name="button"
-                      onClick={() => handleIncreaseQuantity(item.id)}
-                    >
-                      <i className="bi bi-plus-square-fill"></i>
-                    </button>
-                    <input
-                      type="button"
-                      name="name"
-                      value={item.quantity}
-                      readOnly
-                    />
-                    <button
-                      className="minus-btn"
-                      type="button"
-                      name="button"
-                      onClick={() => handleDecreaseQuantity(item.id)}
-                    >
-                      <i className="bi bi-dash-square-fill"></i>
-                    </button>
-                  </div>
-
-                  <div className="total-price " style={{ textAlign: "center" }}>
-                    ${item.price * item.quantity}
-                  </div>
-                  <button
-                    className="remove-btn"
-                    onClick={() => handleRemoveFromCart(item.id)}
-                  >
-                    <i className="bi bi-trash3-fill"></i>
-                  </button>
+          {cartItems.length === 0 ? (
+              <div className="empty" style={{
+                textAlign: "center",
+                padding: "4rem 2rem",
+                color: '#6c757d'
+              }}>
+                <div style={{
+                  fontSize: '3rem',
+                  marginBottom: '1rem',
+                  opacity: 0.3
+                }}>🛒
                 </div>
-              </li>
-            ))}
-            <div className="total">Total: ${totalPrice}</div>
-            <Button
-              className="btn btn-primary"
-              style={{ width: "100%" }}
-              onClick={() => setShowModal(true)}
-            >
-              Checkout
-            </Button>
-          </>
-        )}
+                <h4 style={{color: '#6c757d', fontWeight: '300'}}>Your cart is empty</h4>
+                <p style={{color: '#adb5bd', marginTop: '0.5rem'}}>Add some items to get started!</p>
+              </div>
+          ) : (
+              <>
+                <div style={{padding: '1rem'}}>
+                  {cartItems.map((item, index) => (
+                      <li key={item.id} className="cart-item" style={{
+                        listStyle: 'none',
+                        marginBottom: '1rem',
+                        backgroundColor: '#f8f9fa',
+                        borderRadius: '8px',
+                        padding: '1rem',
+                        transition: 'all 0.3s ease',
+                        border: '1px solid #e9ecef'
+                      }}>
+                        <div
+                            className="item"
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: '1rem'
+                            }}
+                            key={item.id}
+                        >
+                          <div style={{flexShrink: 0}}>
+                            <img
+                                src={`/images/${item.imageName}`}
+                                alt={item.name}
+                                className="cart-item-image"
+                                style={{
+                                  width: '80px',
+                                  height: '80px',
+                                  objectFit: 'cover',
+                                  borderRadius: '8px',
+                                  border: '2px solid #e9ecef'
+                                }}
+                            />
+                          </div>
+
+                          <div className="description" style={{
+                            flex: 1,
+                            minWidth: 0
+                          }}>
+                            <div style={{
+                              fontSize: '0.9rem',
+                              color: '#667eea',
+                              fontWeight: '600',
+                              marginBottom: '0.25rem'
+                            }}>{item.brand}</div>
+                            <div style={{
+                              fontSize: '1.1rem',
+                              fontWeight: '500',
+                              color: '#333',
+                              wordBreak: 'break-word'
+                            }}>{item.name}</div>
+                          </div>
+
+                          <div className="quantity" style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            backgroundColor: 'white',
+                            border: '1px solid #dee2e6',
+                            borderRadius: '6px',
+                            overflow: 'hidden'
+                          }}>
+                            <button
+                                className="minus-btn"
+                                type="button"
+                                onClick={() => handleDecreaseQuantity(item.id)}
+                                style={{
+                                  border: 'none',
+                                  backgroundColor: '#f8f9fa',
+                                  padding: '0.5rem',
+                                  cursor: 'pointer',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  transition: 'background-color 0.2s',
+                                  color: '#6c757d'
+                                }}
+                                onMouseOver={(e) => e.target.style.backgroundColor = '#e9ecef'}
+                                onMouseOut={(e) => e.target.style.backgroundColor = '#f8f9fa'}
+                            >
+                              <i className="bi bi-dash-square-fill"></i>
+                            </button>
+                            <input
+                                type="button"
+                                name="name"
+                                value={item.quantity}
+                                readOnly
+                                style={{
+                                  border: 'none',
+                                  textAlign: 'center',
+                                  width: '50px',
+                                  padding: '0.5rem',
+                                  backgroundColor: 'white',
+                                  fontWeight: 'bold',
+                                  color: '#333'
+                                }}
+                            />
+                            <button
+                                className="plus-btn"
+                                type="button"
+                                onClick={() => handleIncreaseQuantity(item.id)}
+                                style={{
+                                  border: 'none',
+                                  backgroundColor: '#f8f9fa',
+                                  padding: '0.5rem',
+                                  cursor: 'pointer',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  transition: 'background-color 0.2s',
+                                  color: '#6c757d'
+                                }}
+                                onMouseOver={(e) => e.target.style.backgroundColor = '#e9ecef'}
+                                onMouseOut={(e) => e.target.style.backgroundColor = '#f8f9fa'}
+                            >
+                              <i className="bi bi-plus-square-fill"></i>
+                            </button>
+                          </div>
+
+                          <div className="total-price" style={{
+                            textAlign: "center",
+                            minWidth: '80px',
+                            fontWeight: 'bold',
+                            fontSize: '1.1rem',
+                            color: '#333'
+                          }}>
+                            ${(item.price * item.quantity)}
+                          </div>
+
+                          <button
+                              className="remove-btn"
+                              onClick={() => handleRemoveFromCart(item.id)}
+                              style={{
+                                border: 'none',
+                                backgroundColor: '#dc3545',
+                                color: 'white',
+                                padding: '0.5rem',
+                                borderRadius: '6px',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                transition: 'all 0.2s',
+                                marginLeft: '0.5rem'
+                              }}
+                              onMouseOver={(e) => {
+                                e.target.style.backgroundColor = '#c82333';
+                                e.target.style.transform = 'scale(1.05)';
+                              }}
+                              onMouseOut={(e) => {
+                                e.target.style.backgroundColor = '#dc3545';
+                                e.target.style.transform = 'scale(1)';
+                              }}
+                          >
+                            <i className="bi bi-trash3-fill"></i>
+                          </button>
+                        </div>
+                      </li>
+                  ))}
+                </div>
+
+                <div className="total" style={{
+                  backgroundColor: '#f8f9fa',
+                  padding: '1.5rem 2rem',
+                  fontSize: '1.3rem',
+                  fontWeight: 'bold',
+                  textAlign: 'right',
+                  borderTop: '2px solid #e9ecef',
+                  color: '#333'
+                }}>
+                  Total: ${totalPrice}
+                </div>
+
+                <div style={{padding: '1.5rem 2rem'}}>
+                  <Button
+                      className="btn btn-primary"
+                      style={{
+                        width: "100%",
+                        padding: '1rem',
+                        fontSize: '1.1rem',
+                        fontWeight: 'bold',
+                        background: 'linear-gradient(135deg, rgb(116 138 231) 0%, #154a97 100%)',
+                        border: 'none',
+                        borderRadius: '8px',
+                        transition: 'all 0.3s ease',
+                        boxShadow: '0 4px 15px rgba(102, 126, 234, 0.3)'
+                      }}
+                      onClick={() => setShowModal(true)}
+                      onMouseOver={(e) => {
+                        e.target.style.transform = 'translateY(-2px)';
+                        e.target.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.4)';
+                      }}
+                      onMouseOut={(e) => {
+                        e.target.style.transform = 'translateY(0)';
+                        e.target.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.3)';
+                      }}
+                  >
+                    Checkout
+                  </Button>
+                </div>
+              </>
+          )}
+        </div>
+        <CheckoutPopup
+            show={showModal}
+            handleClose={() => setShowModal(false)}
+            cartItems={cartItems}
+            totalPrice={totalPrice}
+            handleCheckout={handleCheckout}
+        />
       </div>
-      <CheckoutPopup
-        show={showModal}
-        handleClose={() => setShowModal(false)}
-        cartItems={cartItems}
-        totalPrice={totalPrice}
-        handleCheckout={handleCheckout}
-      />
-    </div>
 
   );
 };

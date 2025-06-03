@@ -155,18 +155,6 @@ const LaptopShopFooter = () => {
                                 Mã số doanh nghiệp: 1001256327. Giấy chứng nhận đăng ký doanh nghiệp do Sở Kế Hoạch và Đầu tư Tỉnh Thái Bình cấp lần đầu ngày 30/11/2022.
                             </p>
                         </div>
-
-                        {/* Certification Badge */}
-                        {/*<div className="certification-badges">*/}
-                        {/*    <div className="badge-group">*/}
-                        {/*        <div className="certification-badge badge-blue">*/}
-                        {/*            <span className="badge-text">ĐÃ THÔNG BÁO</span>*/}
-                        {/*        </div>*/}
-                        {/*        <div className="certification-badge badge-green">*/}
-                        {/*            <span className="badge-text">DMCA PROTECTED</span>*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
                     </div>
                 </div>
             </div>

@@ -45,7 +45,7 @@ function App() {
         <BrowserRouter>
           <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
             <Navbar onSelectCategory={handleCategorySelect} />
-            <div style={{ flex: 1, paddingTop: "70px" }}>
+            <div style={{ flex: 1, paddingTop: "15px" }}>
               <Routes>
                 <Route
                     path="/"
