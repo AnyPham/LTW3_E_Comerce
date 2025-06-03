@@ -13,7 +13,7 @@ const CheckoutPopup = ({ show, handleClose, cartItems, totalPrice, handleCheckou
         <div className="checkout-items">
           {cartItems.map((item) => (
             <div key={item.id} className="checkout-item" style={{ display: 'flex', marginBottom: '10px' }}>
-              <img src={item.imageUrl} alt={item.name} className="cart-item-image" style={{ width: '150px', marginRight: '10px' }} />
+              <img src={`/images/${item.imageName}`} alt={item.name} className="cart-item-image" style={{ width: '150px', marginRight: '10px' }} />
               <div>
                 <b><p>{item.name}</p></b>
                 <p>Quantity: {item.quantity}</p>
