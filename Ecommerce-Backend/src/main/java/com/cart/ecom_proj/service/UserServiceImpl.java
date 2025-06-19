@@ -1,5 +1,6 @@
 package com.cart.ecom_proj.service;
 
+import com.cart.ecom_proj.dto.AuthResponse;
 import com.cart.ecom_proj.dto.LoginRequest;
 import com.cart.ecom_proj.dto.RegisterRequest;
 import com.cart.ecom_proj.model.Role;
@@ -25,11 +26,12 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder encoder;
 
     @Override
-    public String login(LoginRequest request) {
+    public AuthResponse login(LoginRequest request) {
         User user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
         if (encoder.matches(request.getPassword(), user.getPassword())) {
-            return "Login successful";
+            String role = user.getRoles().iterator().next().getName();
+            return new AuthResponse("Login successful", user.getUsername(), role);
         } else {
             throw new RuntimeException("Invalid credentials");
         }
