@@ -21,11 +21,20 @@ public class Product {
     private String description;
     private String brand;
     private BigDecimal price;
-    private  String category;
+    private String category;
 
     private Date releaseDate;
     private boolean productAvailable;
     private int stockQuantity;
+
+    // Các trường khuyến mãi
+    private BigDecimal originalPrice; // Giá gốc trước khi giảm giá
+    private int discountPercent; // Phần trăm giảm giá
+    private boolean freeShipping; // Miễn phí vận chuyển
+    private boolean isHot; // Sản phẩm hot
+    private int viewCount; // Số lượt xem
+    private String promoCode; // Mã khuyến mãi
+    private Date promoEndDate; // Ngày kết thúc khuyến mãi
 
     private String imageName;
     private String imageType;
@@ -126,5 +135,61 @@ public class Product {
 
     public void setImageDate(byte[] imageDate) {
         this.imageDate = imageDate;
+    }
+
+    public BigDecimal getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(BigDecimal originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+
+    public int getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public void setDiscountPercent(int discountPercent) {
+        this.discountPercent = discountPercent;
+    }
+
+    public boolean isFreeShipping() {
+        return freeShipping;
+    }
+
+    public void setFreeShipping(boolean freeShipping) {
+        this.freeShipping = freeShipping;
+    }
+
+    public boolean isHot() {
+        return isHot;
+    }
+
+    public void setHot(boolean hot) {
+        isHot = hot;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public String getPromoCode() {
+        return promoCode;
+    }
+
+    public void setPromoCode(String promoCode) {
+        this.promoCode = promoCode;
+    }
+
+    public Date getPromoEndDate() {
+        return promoEndDate;
+    }
+
+    public void setPromoEndDate(Date promoEndDate) {
+        this.promoEndDate = promoEndDate;
     }
 }

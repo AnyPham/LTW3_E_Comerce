@@ -263,9 +263,11 @@ import AppContext from "../Context/Context";
 import axios from "axios";
 import CheckoutPopup from "./CheckoutPopup";
 import { Button } from 'react-bootstrap';
+import { useToast } from './ToastManager';
 
 const Cart = () => {
-  const { cart, removeFromCart , clearCart } = useContext(AppContext);
+  const { cart, removeFromCart, clearCart } = useContext(AppContext);
+  const toast = useToast();
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartImage, setCartImage] = useState([]);
@@ -383,251 +385,583 @@ const Cart = () => {
       clearCart();
       setCartItems([]);
       setShowModal(false);
+      
+      // Hiển thị thông báo thanh toán thành công
+      toast.showSuccess("Đã thanh toán thành công! Cảm ơn bạn đã mua hàng.", 5000);
+      
+      // Chuyển hướng về trang chủ sau 2 giây
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 2000);
     } catch (error) {
       console.log("error during checkout", error);
+      toast.showError("Có lỗi xảy ra trong quá trình thanh toán. Vui lòng thử lại sau.");
     }
   };
 
   return (
       <div className="cart-container" style={{
         minHeight: '100vh',
-        backgroundColor: '#f8f9fa',
-        padding: '2rem 1rem'
+        backgroundColor: '#f5f5f5',
+        padding: '2rem 1rem',
+        marginTop: '64px'
       }}>
         <div className="shopping-cart" style={{
-          maxWidth: '800px',
+          maxWidth: '900px',
           margin: '0 auto',
           backgroundColor: 'white',
-          borderRadius: '12px',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+          borderRadius: '16px',
+          boxShadow: '0 6px 24px rgba(0,0,0,0.08)',
           overflow: 'hidden'
         }}>
           <div className="title" style={{
-            background: 'linear-gradient(135deg, rgb(116 138 231) 0%, #154a97 100%)',
+            background: 'linear-gradient(45deg, #ff4081 0%, #ff7043 100%)',
             color: 'white',
             padding: '1.5rem 2rem',
-            fontSize: '1.5rem',
-            fontWeight: 'bold',
+            fontSize: '1.6rem',
+            fontWeight: '600',
             textAlign: 'center',
-            margin: 0
-          }}>Shopping Bag
+            margin: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '10px'
+          }}>
+            <i className="fas fa-shopping-cart" style={{fontSize: '1.4rem'}}></i>
+            Giỏ hàng của bạn
           </div>
 
           {cartItems.length === 0 ? (
               <div className="empty" style={{
                 textAlign: "center",
                 padding: "4rem 2rem",
-                color: '#6c757d'
+                color: '#757575',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}>
                 <div style={{
-                  fontSize: '3rem',
-                  marginBottom: '1rem',
-                  opacity: 0.3
-                }}>🛒
+                  fontSize: '5rem',
+                  marginBottom: '1.5rem',
+                  color: '#ff4081',
+                  opacity: 0.7
+                }}>
+                  <i className="fas fa-shopping-cart"></i>
                 </div>
-                <h4 style={{color: '#6c757d', fontWeight: '300'}}>Your cart is empty</h4>
-                <p style={{color: '#adb5bd', marginTop: '0.5rem'}}>Add some items to get started!</p>
+                <h3 style={{
+                  color: '#424242', 
+                  fontWeight: '500',
+                  marginBottom: '1rem'
+                }}>Giỏ hàng của bạn đang trống</h3>
+                <p style={{
+                  color: '#757575', 
+                  marginBottom: '2rem',
+                  maxWidth: '400px',
+                  lineHeight: '1.6'
+                }}>Hãy thêm sản phẩm vào giỏ hàng để tiếp tục mua sắm!</p>
+                <a href="/" style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  backgroundColor: '#ff4081',
+                  color: 'white',
+                  padding: '12px 24px',
+                  borderRadius: '30px',
+                  textDecoration: 'none',
+                  fontWeight: '600',
+                  boxShadow: '0 4px 10px rgba(255, 64, 129, 0.3)',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseOver={(e) => {
+                  e.target.style.backgroundColor = '#f50057';
+                  e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 6px 15px rgba(255, 64, 129, 0.4)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.backgroundColor = '#ff4081';
+                  e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = '0 4px 10px rgba(255, 64, 129, 0.3)';
+                }}>
+                  <i className="fas fa-shopping-bag"></i>
+                  Tiếp tục mua sắm
+                </a>
               </div>
           ) : (
               <>
-                <div style={{padding: '1rem'}}>
+                <div style={{padding: '1.5rem'}}>
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '0 0.5rem 1rem',
+                    borderBottom: '1px solid #f0f0f0',
+                    marginBottom: '1.5rem',
+                    color: '#757575',
+                    fontSize: '0.9rem',
+                    fontWeight: '500'
+                  }}>
+                    <div style={{flex: '2'}}>Sản phẩm</div>
+                    <div style={{flex: '1', textAlign: 'center'}}>Đơn giá</div>
+                    <div style={{flex: '1', textAlign: 'center'}}>Số lượng</div>
+                    <div style={{flex: '1', textAlign: 'center'}}>Thành tiền</div>
+                    <div style={{width: '50px'}}></div>
+                  </div>
+                  
                   {cartItems.map((item, index) => (
-                      <li key={item.id} className="cart-item" style={{
+                      <div key={item.id} className="cart-item" style={{
                         listStyle: 'none',
-                        marginBottom: '1rem',
-                        backgroundColor: '#f8f9fa',
-                        borderRadius: '8px',
-                        padding: '1rem',
+                        marginBottom: '1.5rem',
+                        backgroundColor: 'white',
+                        borderRadius: '12px',
+                        padding: '1.2rem',
                         transition: 'all 0.3s ease',
-                        border: '1px solid #e9ecef'
+                        border: '1px solid #f0f0f0',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                        position: 'relative'
+                      }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)';
+                        e.currentTarget.style.borderColor = '#e0e0e0';
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)';
+                        e.currentTarget.style.borderColor = '#f0f0f0';
                       }}>
                         <div
                             className="item"
                             style={{
                               display: "flex",
                               alignItems: "center",
-                              gap: '1rem'
+                              gap: '1.5rem'
                             }}
-                            key={item.id}
                         >
-                          <div style={{flexShrink: 0}}>
-                            <img
-                                src={`/images/${item.imageName}`}
-                                alt={item.name}
-                                className="cart-item-image"
-                                style={{
-                                  width: '80px',
-                                  height: '80px',
-                                  objectFit: 'cover',
-                                  borderRadius: '8px',
-                                  border: '2px solid #e9ecef'
-                                }}
-                            />
-                          </div>
-
-                          <div className="description" style={{
-                            flex: 1,
-                            minWidth: 0
-                          }}>
-                            <div style={{
-                              fontSize: '0.9rem',
-                              color: '#667eea',
-                              fontWeight: '600',
-                              marginBottom: '0.25rem'
-                            }}>{item.brand}</div>
-                            <div style={{
-                              fontSize: '1.1rem',
-                              fontWeight: '500',
-                              color: '#333',
-                              wordBreak: 'break-word'
-                            }}>{item.name}</div>
-                          </div>
-
-                          <div className="quantity" style={{
+                          {/* Sản phẩm */}
+                          <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            backgroundColor: 'white',
-                            border: '1px solid #dee2e6',
-                            borderRadius: '6px',
-                            overflow: 'hidden'
+                            gap: '1rem',
+                            flex: '2'
                           }}>
-                            <button
-                                className="minus-btn"
-                                type="button"
-                                onClick={() => handleDecreaseQuantity(item.id)}
-                                style={{
-                                  border: 'none',
-                                  backgroundColor: '#f8f9fa',
-                                  padding: '0.5rem',
-                                  cursor: 'pointer',
+                            <div style={{
+                              flexShrink: 0,
+                              position: 'relative'
+                            }}>
+                              <div style={{
+                                width: '100px',
+                                height: '100px',
+                                borderRadius: '10px',
+                                overflow: 'hidden',
+                                backgroundColor: '#f9f9f9',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                border: '1px solid #f0f0f0'
+                              }}>
+                                <img
+                                    src={`/images/${item.imageName}`}
+                                    alt={item.name}
+                                    className="cart-item-image"
+                                    style={{
+                                      maxWidth: '90%',
+                                      maxHeight: '90%',
+                                      objectFit: 'contain'
+                                    }}
+                                />
+                              </div>
+                              {item.discountPercent > 0 && (
+                                <div style={{
+                                  position: 'absolute',
+                                  top: '-8px',
+                                  right: '-8px',
+                                  backgroundColor: '#ff4081',
+                                  color: 'white',
+                                  borderRadius: '50%',
+                                  width: '36px',
+                                  height: '36px',
                                   display: 'flex',
                                   alignItems: 'center',
                                   justifyContent: 'center',
-                                  transition: 'background-color 0.2s',
-                                  color: '#6c757d'
-                                }}
-                                onMouseOver={(e) => e.target.style.backgroundColor = '#e9ecef'}
-                                onMouseOut={(e) => e.target.style.backgroundColor = '#f8f9fa'}
-                            >
-                              <i className="bi bi-dash-square-fill"></i>
-                            </button>
-                            <input
-                                type="button"
-                                name="name"
-                                value={item.quantity}
-                                readOnly
-                                style={{
-                                  border: 'none',
-                                  textAlign: 'center',
-                                  width: '50px',
-                                  padding: '0.5rem',
-                                  backgroundColor: 'white',
+                                  fontSize: '0.75rem',
                                   fontWeight: 'bold',
-                                  color: '#333'
-                                }}
-                            />
-                            <button
-                                className="plus-btn"
-                                type="button"
-                                onClick={() => handleIncreaseQuantity(item.id)}
-                                style={{
-                                  border: 'none',
-                                  backgroundColor: '#f8f9fa',
-                                  padding: '0.5rem',
-                                  cursor: 'pointer',
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  transition: 'background-color 0.2s',
-                                  color: '#6c757d'
-                                }}
-                                onMouseOver={(e) => e.target.style.backgroundColor = '#e9ecef'}
-                                onMouseOut={(e) => e.target.style.backgroundColor = '#f8f9fa'}
-                            >
-                              <i className="bi bi-plus-square-fill"></i>
-                            </button>
+                                  boxShadow: '0 2px 5px rgba(0,0,0,0.2)'
+                                }}>
+                                  -{item.discountPercent}%
+                                </div>
+                              )}
+                            </div>
+                            
+                            <div style={{
+                              flex: 1,
+                              minWidth: 0
+                            }}>
+                              <div style={{
+                                fontSize: '0.85rem',
+                                color: '#757575',
+                                marginBottom: '0.25rem'
+                              }}>{item.brand}</div>
+                              <div style={{
+                                fontSize: '1rem',
+                                fontWeight: '600',
+                                color: '#212121',
+                                marginBottom: '0.5rem',
+                                lineHeight: '1.4',
+                                display: '-webkit-box',
+                                WebkitLineClamp: '2',
+                                WebkitBoxOrient: 'vertical',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis'
+                              }}>{item.name}</div>
+                              
+                              {/* Badges */}
+                              <div style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                gap: '5px'
+                              }}>
+                                {item.freeShipping && (
+                                  <span style={{
+                                    fontSize: '0.7rem',
+                                    backgroundColor: '#e8f5e9',
+                                    color: '#2e7d32',
+                                    padding: '2px 6px',
+                                    borderRadius: '4px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '3px'
+                                  }}>
+                                    <i className="fas fa-truck" style={{fontSize: '0.65rem'}}></i>
+                                    Free Ship
+                                  </span>
+                                )}
+                                
+                                {item.promoCode && (
+                                  <span style={{
+                                    fontSize: '0.7rem',
+                                    backgroundColor: '#f3e5f5',
+                                    color: '#6a1b9a',
+                                    padding: '2px 6px',
+                                    borderRadius: '4px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '3px'
+                                  }}>
+                                    <i className="fas fa-tag" style={{fontSize: '0.65rem'}}></i>
+                                    {item.promoCode}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
                           </div>
-
-                          <div className="total-price" style={{
-                            textAlign: "center",
-                            minWidth: '80px',
-                            fontWeight: 'bold',
-                            fontSize: '1.1rem',
-                            color: '#333'
+                          
+                          {/* Đơn giá */}
+                          <div style={{
+                            flex: '1',
+                            textAlign: 'center'
                           }}>
-                            ${(item.price * item.quantity)}
+                            {item.originalPrice ? (
+                              <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px'}}>
+                                <span style={{
+                                  fontWeight: '600',
+                                  fontSize: '1rem',
+                                  color: '#e53935'
+                                }}>
+                                  {parseInt(item.price).toLocaleString('vi-VN')}₫
+                                </span>
+                                <span style={{
+                                  textDecoration: 'line-through',
+                                  color: '#9e9e9e',
+                                  fontSize: '0.85rem'
+                                }}>
+                                  {parseInt(item.originalPrice).toLocaleString('vi-VN')}₫
+                                </span>
+                              </div>
+                            ) : (
+                              <span style={{
+                                fontWeight: '600',
+                                fontSize: '1rem',
+                                color: '#212121'
+                              }}>
+                                {parseInt(item.price).toLocaleString('vi-VN')}₫
+                              </span>
+                            )}
                           </div>
 
+                          {/* Số lượng */}
+                          <div style={{
+                            flex: '1',
+                            display: 'flex',
+                            justifyContent: 'center'
+                          }}>
+                            <div className="quantity" style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              backgroundColor: 'white',
+                              border: '1px solid #e0e0e0',
+                              borderRadius: '30px',
+                              overflow: 'hidden',
+                              boxShadow: '0 2px 5px rgba(0,0,0,0.05)'
+                            }}>
+                              <button
+                                  className="minus-btn"
+                                  type="button"
+                                  onClick={() => handleDecreaseQuantity(item.id)}
+                                  style={{
+                                    border: 'none',
+                                    backgroundColor: 'transparent',
+                                    padding: '0.5rem 0.7rem',
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    transition: 'all 0.2s',
+                                    color: '#757575'
+                                  }}
+                                  onMouseOver={(e) => {
+                                    e.target.style.backgroundColor = '#f5f5f5';
+                                    e.target.style.color = '#212121';
+                                  }}
+                                  onMouseOut={(e) => {
+                                    e.target.style.backgroundColor = 'transparent';
+                                    e.target.style.color = '#757575';
+                                  }}
+                              >
+                                <i className="fas fa-minus" style={{fontSize: '0.8rem'}}></i>
+                              </button>
+                              <input
+                                  type="button"
+                                  name="name"
+                                  value={item.quantity}
+                                  readOnly
+                                  style={{
+                                    border: 'none',
+                                    textAlign: 'center',
+                                    width: '40px',
+                                    padding: '0.5rem 0',
+                                    backgroundColor: 'white',
+                                    fontWeight: '600',
+                                    color: '#212121',
+                                    fontSize: '0.95rem'
+                                  }}
+                              />
+                              <button
+                                  className="plus-btn"
+                                  type="button"
+                                  onClick={() => handleIncreaseQuantity(item.id)}
+                                  style={{
+                                    border: 'none',
+                                    backgroundColor: 'transparent',
+                                    padding: '0.5rem 0.7rem',
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    transition: 'all 0.2s',
+                                    color: '#757575'
+                                  }}
+                                  onMouseOver={(e) => {
+                                    e.target.style.backgroundColor = '#f5f5f5';
+                                    e.target.style.color = '#212121';
+                                  }}
+                                  onMouseOut={(e) => {
+                                    e.target.style.backgroundColor = 'transparent';
+                                    e.target.style.color = '#757575';
+                                  }}
+                              >
+                                <i className="fas fa-plus" style={{fontSize: '0.8rem'}}></i>
+                              </button>
+                            </div>
+                          </div>
+
+                          {/* Thành tiền */}
+                          <div style={{
+                            flex: '1',
+                            textAlign: "center",
+                            fontWeight: '700',
+                            fontSize: '1.1rem',
+                            color: '#ff4081'
+                          }}>
+                            {parseInt(item.price * item.quantity).toLocaleString('vi-VN')}₫
+                          </div>
+
+                          {/* Nút xóa */}
                           <button
                               className="remove-btn"
                               onClick={() => handleRemoveFromCart(item.id)}
                               style={{
                                 border: 'none',
-                                backgroundColor: '#dc3545',
-                                color: 'white',
-                                padding: '0.5rem',
-                                borderRadius: '6px',
+                                backgroundColor: 'transparent',
+                                color: '#9e9e9e',
+                                width: '40px',
+                                height: '40px',
+                                borderRadius: '50%',
                                 cursor: 'pointer',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 transition: 'all 0.2s',
-                                marginLeft: '0.5rem'
+                                fontSize: '1.1rem'
                               }}
                               onMouseOver={(e) => {
-                                e.target.style.backgroundColor = '#c82333';
-                                e.target.style.transform = 'scale(1.05)';
+                                e.target.style.backgroundColor = '#ffebee';
+                                e.target.style.color = '#f44336';
                               }}
                               onMouseOut={(e) => {
-                                e.target.style.backgroundColor = '#dc3545';
-                                e.target.style.transform = 'scale(1)';
+                                e.target.style.backgroundColor = 'transparent';
+                                e.target.style.color = '#9e9e9e';
                               }}
+                              title="Xóa sản phẩm"
                           >
-                            <i className="bi bi-trash3-fill"></i>
+                            <i className="fas fa-trash-alt"></i>
                           </button>
                         </div>
-                      </li>
+                      </div>
                   ))}
                 </div>
 
-                <div className="total" style={{
-                  backgroundColor: '#f8f9fa',
+                <div style={{
                   padding: '1.5rem 2rem',
-                  fontSize: '1.3rem',
-                  fontWeight: 'bold',
-                  textAlign: 'right',
-                  borderTop: '2px solid #e9ecef',
-                  color: '#333'
+                  borderTop: '1px solid #f0f0f0',
+                  backgroundColor: '#fafafa'
                 }}>
-                  Total: ${totalPrice}
-                </div>
-
-                <div style={{padding: '1.5rem 2rem'}}>
-                  <Button
-                      className="btn btn-primary"
+                  {/* Thông tin tổng quan */}
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginBottom: '1rem'
+                  }}>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      color: '#757575',
+                      fontSize: '0.95rem'
+                    }}>
+                      <span>Tổng số sản phẩm: <strong>{cartItems.length}</strong></span>
+                      <span style={{color: '#e0e0e0'}}>|</span>
+                      <span>Tổng số lượng: <strong>{cartItems.reduce((total, item) => total + item.quantity, 0)}</strong></span>
+                    </div>
+                    
+                    <button 
+                      onClick={() => clearCart()}
                       style={{
-                        width: "100%",
-                        padding: '1rem',
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        color: '#9e9e9e',
+                        fontSize: '0.9rem',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '5px',
+                        padding: '6px 12px',
+                        borderRadius: '4px',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseOver={(e) => {
+                        e.target.style.backgroundColor = '#ffebee';
+                        e.target.style.color = '#f44336';
+                      }}
+                      onMouseOut={(e) => {
+                        e.target.style.backgroundColor = 'transparent';
+                        e.target.style.color = '#9e9e9e';
+                      }}
+                    >
+                      <i className="fas fa-trash-alt" style={{fontSize: '0.85rem'}}></i>
+                      Xóa tất cả
+                    </button>
+                  </div>
+                  
+                  {/* Tổng tiền */}
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    alignItems: 'center',
+                    gap: '15px',
+                    marginBottom: '1.5rem'
+                  }}>
+                    <div style={{
+                      textAlign: 'right',
+                      color: '#212121'
+                    }}>
+                      <div style={{
+                        fontSize: '0.95rem',
+                        marginBottom: '5px'
+                      }}>Tổng tiền:</div>
+                      <div style={{
+                        fontSize: '1.5rem',
+                        fontWeight: '700',
+                        color: '#ff4081'
+                      }}>
+                        {parseInt(totalPrice).toLocaleString('vi-VN')}₫
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Nút thanh toán và tiếp tục mua sắm */}
+                  <div style={{
+                    display: 'flex',
+                    gap: '15px'
+                  }}>
+                    <a href="/" style={{
+                      flex: '1',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '8px',
+                      padding: '14px',
+                      backgroundColor: 'white',
+                      color: '#757575',
+                      border: '1px solid #e0e0e0',
+                      borderRadius: '8px',
+                      textDecoration: 'none',
+                      fontSize: '1rem',
+                      fontWeight: '500',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseOver={(e) => {
+                      e.target.style.backgroundColor = '#f5f5f5';
+                      e.target.style.borderColor = '#bdbdbd';
+                    }}
+                    onMouseOut={(e) => {
+                      e.target.style.backgroundColor = 'white';
+                      e.target.style.borderColor = '#e0e0e0';
+                    }}>
+                      <i className="fas fa-arrow-left" style={{fontSize: '0.9rem'}}></i>
+                      Tiếp tục mua sắm
+                    </a>
+                    
+                    <Button
+                      className="checkout-btn"
+                      style={{
+                        flex: '2',
+                        padding: '14px',
                         fontSize: '1.1rem',
-                        fontWeight: 'bold',
-                        background: 'linear-gradient(135deg, rgb(116 138 231) 0%, #154a97 100%)',
+                        fontWeight: '600',
+                        background: 'linear-gradient(45deg, #ff4081 0%, #ff7043 100%)',
                         border: 'none',
                         borderRadius: '8px',
                         transition: 'all 0.3s ease',
-                        boxShadow: '0 4px 15px rgba(102, 126, 234, 0.3)'
+                        boxShadow: '0 4px 15px rgba(255, 64, 129, 0.3)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '10px'
                       }}
                       onClick={() => setShowModal(true)}
                       onMouseOver={(e) => {
                         e.target.style.transform = 'translateY(-2px)';
-                        e.target.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.4)';
+                        e.target.style.boxShadow = '0 6px 20px rgba(255, 64, 129, 0.4)';
                       }}
                       onMouseOut={(e) => {
                         e.target.style.transform = 'translateY(0)';
-                        e.target.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.3)';
+                        e.target.style.boxShadow = '0 4px 15px rgba(255, 64, 129, 0.3)';
                       }}
-                  >
-                    Checkout
-                  </Button>
+                    >
+                      <i className="fas fa-credit-card"></i>
+                      Thanh toán ngay
+                    </Button>
+                  </div>
                 </div>
               </>
           )}

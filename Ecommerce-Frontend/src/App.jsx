@@ -6,6 +6,7 @@ import Cart from "./components/Cart";
 import AddProduct from "./components/AddProduct";
 import Product from "./components/Product";
 import UpdateProduct from "./components/UpdateProduct";
+import SearchResults from "./components/SearchResults";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import AdminPage from "./pages/AdminPage";
@@ -13,6 +14,7 @@ import UserPage from "./pages/UserPage";
 import Footer from "./components/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppProvider } from "./Context/Context";
+import ToastProvider from "./components/ToastManager";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
@@ -42,13 +44,14 @@ function App() {
 
   return (
       <AppProvider>
-        <BrowserRouter>
-          <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-            <Navbar onSelectCategory={handleCategorySelect} />
-            <div style={{ flex: 1, paddingTop: "15px" }}>
-              <Routes>
-                <Route
-                    path="/"
+        <ToastProvider>
+          <BrowserRouter>
+            <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+              <Navbar onSelectCategory={handleCategorySelect} />
+              <div style={{ flex: 1, paddingTop: "15px" }}>
+                <Routes>
+                  <Route
+                      path="/"
                     element={<Home addToCart={addToCart} selectedCategory={selectedCategory} />}
                 />
                 <Route path="/add_product" element={<AddProduct />} />
@@ -56,6 +59,7 @@ function App() {
                 <Route path="/product/:id" element={<Product />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/product/update/:id" element={<UpdateProduct />} />
+                <Route path="/search" element={<SearchResults />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/admin" element={<AdminPage />} />
@@ -70,9 +74,10 @@ function App() {
                 />
               </Routes>
             </div>
-            <Footer />
-          </div>
-        </BrowserRouter>
+              <Footer />
+            </div>
+          </BrowserRouter>
+        </ToastProvider>
       </AppProvider>
   );
 }
